@@ -1,0 +1,9 @@
+### Python ###
+# PyCharm
+.idea/
+
+# ruff
+.ruff_cache/
+
+### macOS ###
+.DS_Store
