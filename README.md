@@ -13,7 +13,6 @@
 - [ ] Python 3.12 support
 - [ ] Auto-generated `CHANGELOG.md` from git commits with usage of [commitizen](https://commitizen-tools.github.io/commitizen/)
 
-
 ## 🚀 Quick setup and usage 🚀
 
 ```bash
