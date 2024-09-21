@@ -1,0 +1,59 @@
+# {{ project_name }}
+
+{{ project_description }}
+
+## Project structure
+
+This section contains an explanation of how this repository is organized and what are the contents and purpose of
+the most important directories:
+
+🚨 TODO: fill this section with the structure of your project
+
+## 🔧 Installation 🔧
+
+This project uses Python 3.12. using [uv](https://docs.astral.sh/uv/) as the package manager. To install `uv` run:
+
+```shell
+pip install --user uv
+```
+
+We can now proceed to install all project dependencies. It will also install the development ones:
+
+- `invoke`: that enables to write and manage development commands with ease
+- `pre-commit`: automatically linters, checks and standardizes the files.
+
+```shell
+uv venv
+source .venv/bin/activate
+uv sync
+```
+
+## ⚡️ Running the project ⚡️
+
+🚨 TODO: fill this section with the instructions to run the project (e.g. `uv run start`, `invoke docker.run`, etc.)
+
+## 🧪 Running the tests 🧪
+
+To run the tests, you can use the following command:
+
+```shell
+inv test.unit
+```
+
+## 🐋 Docker images 🐋
+
+If you want to create the project's Docker image, you can use the build task:
+
+```shell
+inv docker.build
+```
+
+## 📖 Documentation 📖
+
+The documentation of {{ project_name }}  is built using [MkDocs](https://www.mkdocs.org/).
+Run the following command to serve the documentation.
+> Note: Useful plugins that would be useful to install : mkdocs-jupyter, mkdocstrings, ... .
+
+```shell
+inv project.docs --serve
+```
