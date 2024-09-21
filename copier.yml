@@ -1,0 +1,26 @@
+## Project information
+project_name:
+  type: str
+  help: Your project name
+project_description:
+  type: str
+  help: Your project description for the pyproject.toml file
+author_username:
+  type: str
+  help: wHO ArE yOU?
+author_email:
+  type: str
+  help: hOW cAN i cONtACt yOU?
+## Git information
+git_remote_url:
+  type: str
+  help: Copy paste the URL provided by your platform
+## Python package information
+python_package_distribution_name:
+  type: str
+  help: Your Python package distribution name (for `pip install <NAME>`)
+  default: "{{ project_name }}"
+python_package_import_name:
+  type: str
+  help: Your Python package import name (for `import <NAME>` in Python code)
+  default: "{{ project_name }}"
