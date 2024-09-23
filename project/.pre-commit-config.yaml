@@ -1,12 +1,26 @@
+default_language_version:
+  python: python3.12
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
+      - id: check-builtin-literals
       - id: check-added-large-files
       - id: check-case-conflict
+      - id: debug-statements
       - id: end-of-file-fixer
       - id: trailing-whitespace
+      - id: check-docstring-first
       - id: mixed-line-ending
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.4.15
+    hooks:
+      - id: pip-compile
+        args: [requirements.in, -o, requirements.txt]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.11.2
+    hooks:
+      - id: mypy
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.7
     hooks:
@@ -19,16 +33,3 @@ repos:
       - id: markdownlint-cli2
         args: [--fix]
         exclude: ^CHANGELOG
-  - repo: https://github.com/google/yamlfmt
-    rev: v0.13.0
-    hooks:
-      - id: yamlfmt
-  - repo: https://github.com/pecigonzalo/pre-commit-shfmt
-    rev: v2.2.0
-    hooks:
-      - id: shell-fmt
-        args:
-          - -i
-          - '2'
-          - -ci
-          - -s

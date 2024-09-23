@@ -1,2 +1,2 @@
 test:
-	@bash tests/test_template_generation.sh
+	@bats tests/test_generation.bats
