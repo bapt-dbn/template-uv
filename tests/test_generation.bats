@@ -46,13 +46,16 @@ trap "teardown" EXIT
 @test "Pre-commit check ..." {
     echo -e "${YELLOW}### Pre-commit check ###${NC}"
 
+    cd "${TEST_FOLDER_NAME}"
+    uv venv
+    uv sync
+    source .venv/bin/activate
+    git init
+
     if ! command -v pre-commit &> /dev/null; then
         echo -e "${RED}Pre-commit is not installed.${NC}"
         return 1
     fi
-
-    cd "${TEST_FOLDER_NAME}"
-    git init
 
     run pre-commit install
     if [ "$status" -ne 0 ]; then
@@ -68,6 +71,74 @@ trap "teardown" EXIT
     else
         echo -e "${RED}Pre-commit hook failed!${NC}"
     fi
+}
 
-    [ "$status" -eq 0 ]
+@test "Commitizen check ..." {
+    echo -e "${YELLOW}### Commitizen check ###${NC}"
+
+    cd "${TEST_FOLDER_NAME}"
+    uv venv
+    uv sync
+    source .venv/bin/activate
+
+    if ! command -v cz &> /dev/null; then
+        echo -e "${RED}Commitizen is not installed.${NC}"
+        return 1
+    fi
+
+    run cz check --message="added(feat): Empty file"
+    if [ "$status" -eq 0 ]; then
+        echo -e "${GREEN}Commitizen schema succeeded!${NC}"
+    else
+        echo -e "${RED}Commitizen schema failed!${NC}"
+    fi
+
+    run cz check --message="test wrong commit message"
+    if [ "$status" -eq 1 ]; then
+        echo -e "${GREEN}Commitizen check succeeded!${NC}"
+    else
+        echo -e "${RED}Commitizen check failed!${NC}"
+    fi
+}
+
+@test "Invoke check ..." {
+    echo -e "${YELLOW}### Invoke check ###${NC}"
+
+    cd "${TEST_FOLDER_NAME}"
+    uv venv
+    uv sync
+    source .venv/bin/activate
+
+    if ! command -v invoke &> /dev/null; then
+        echo -e "${RED}Invoke is not installed.${NC}"
+        return 1
+    fi
+
+    run inv -l
+    if [ "$status" -eq 0 ]; then
+        echo -e "${GREEN}Invoke check succeeded!${NC}"
+    else
+        echo -e "${RED}Invoke check failed!${NC}"
+    fi
+}
+
+@test "Unit test check ..." {
+    echo -e "${YELLOW}### Unit test check ###${NC}"
+
+    cd "${TEST_FOLDER_NAME}"
+    uv venv
+    uv sync
+    source .venv/bin/activate
+
+    if ! command -v pytest &> /dev/null; then
+        echo -e "${RED}Pytest is not installed.${NC}"
+        return 1
+    fi
+
+    run invoke test.unit
+    if [ "$status" -eq 0 ]; then
+        echo -e "${GREEN}Unit test check succeeded!${NC}"
+    else
+        echo -e "${RED}Unit test check failed!${NC}"
+    fi
 }
