@@ -4,13 +4,13 @@
 
 ## 🧪 Features 🧪
 
-- [ ] [uv](https://astral.sh/blog/uv) setup, with pre-defined `pyproject.toml`
+- [X] [uv](https://astral.sh/blog/uv) setup, with pre-defined `pyproject.toml`
 - [ ] Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs) ([Material theme](https://github.com/squidfunk/mkdocs-material))
-- [ ] Pre-configured tools for code formatting, quality analysis and testing:
-  - [ ] [ruff](https://github.com/charliermarsh/ruff)
-- [ ] Tests run with [pytest](https://github.com/pytest-dev/pytest) and plugins, with [coverage](https://github.com/nedbat/coveragepy) support
-- [ ] Cross-platform tasks with [invoke](https://www.pyinvoke.org/)
-- [ ] Python 3.12 support
+- [X] Pre-configured tools for code formatting, quality analysis and testing:
+  - [X] [ruff](https://github.com/charliermarsh/ruff)
+- [X] Tests run with [pytest](https://github.com/pytest-dev/pytest) and plugins, with [coverage](https://github.com/nedbat/coveragepy) support
+- [X] Cross-platform tasks with [invoke](https://www.pyinvoke.org/)
+- [X] Python 3.12 support
 - [ ] Auto-generated `CHANGELOG.md` from git commits with usage of [commitizen](https://commitizen-tools.github.io/commitizen/)
 
 ## 🚀 Quick setup and usage 🚀

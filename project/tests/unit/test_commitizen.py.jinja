@@ -1,0 +1,85 @@
+import re
+from collections.abc import Generator
+from enum import auto
+from enum import StrEnum
+
+import pytest
+from _pytest.fixtures import SubRequest
+from commitizen import config
+
+
+class CZScope(StrEnum):
+    FEAT = auto()
+    DOCS = auto()
+    TEST = auto()
+    TECH = auto()
+    DEPS = auto()
+
+
+class CZType(StrEnum):
+    ADDED = auto()
+    REMOVED = auto()
+    FIXED = auto()
+    CHANGED = auto()
+
+
+@pytest.fixture(scope="session")
+def message_pattern() -> Generator[re.Pattern, None, None]:
+    """Load and compile pattern for commit schema.
+
+    This is a session scope fixture to avoid re-compiling the regex each time the fixture is called.
+    Just this alone makes the schema tests go 3x faster.
+    """
+    pattern: str = config.read_cfg().settings["customize"]["schema_pattern"]  # type: ignore[assignment]
+    yield re.compile(pattern)
+
+
+@pytest.fixture(params=["Draft: ", ""])
+def draft_substr(request: SubRequest) -> str:
+    return request.param
+
+
+@pytest.fixture(params=CZType)
+def change_type(request: SubRequest) -> str:
+    return request.param
+
+
+@pytest.fixture(params=CZScope)
+def scope_substr(request: SubRequest) -> str:
+    return request.param
+
+
+@pytest.fixture
+def message_substr() -> str:
+    return "wow much message"
+
+
+def test_cz_schema() -> None:
+    schema: str = config.read_cfg().settings["customize"]["schema"]  # type: ignore[assignment]
+    assert schema == "<type>(<scope>): <body>"
+
+
+def test_commitizen_pattern(
+    message_pattern: re.Pattern,
+    draft_substr: str,
+    change_type: CZType,
+    scope_substr: CZScope,
+    message_substr: str,
+) -> None:
+    candidate = f"{draft_substr}{change_type}({scope_substr}): {message_substr}"
+    assert message_pattern.match(candidate)
+
+
+@pytest.mark.parametrize(
+    "candidate",
+    [
+        pytest.param("", id="empty"),
+        pytest.param("added(feat)", id="no message"),
+        pytest.param("(feat):", id="no change"),
+        pytest.param("added:", id="no scope"),
+        pytest.param("wow(feat): much message", id="wrong change type"),
+        pytest.param("added(wow): much message", id="wrong scope"),
+    ],
+)
+def test_commitizen_pattern_fail(message_pattern: re.Pattern, candidate: str) -> None:
+    assert message_pattern.match(candidate) is None
