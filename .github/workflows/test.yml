@@ -1,5 +1,11 @@
 name: Test
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    types:
+      - closed
 jobs:
   test:
     runs-on: ubuntu-latest
