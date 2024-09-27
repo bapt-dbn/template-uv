@@ -1,15 +1,16 @@
-#!/usr/bin/env bats
+#!/usr/bin/env bash
+
+load ./test_helper.bash
 
 RED='\033[0;31m'
-GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m'
 
 COPIER_PROJECT_NAME=project/
-TEST_FOLDER_NAME=$(pwd)/tests/temp
+TEST_FOLDER_NAME=./tests/temp
 TEST_PROJECT_NAME="test_template"
 
-setup() {
+setup_suite() {
     mkdir -p "${TEST_FOLDER_NAME}"
 
     copier copy -f --trust -r HEAD "${COPIER_PROJECT_NAME}" "${TEST_FOLDER_NAME}" \
@@ -25,11 +26,7 @@ setup() {
     activate_venv
 }
 
-teardown() {
+teardown_suite() {
     echo -e "${YELLOW}Cleaning up ...${NC}"
     rm -rf "${TEST_FOLDER_NAME}"
 }
-
-load 'test_helpers.bash'
-
-trap "teardown" EXIT
