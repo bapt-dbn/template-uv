@@ -1,0 +1,44 @@
+site_name: "{{ project_name }}"
+site_description: "{{ project_description }}"
+repo_url: "{{ git_remote_url }}"
+repo_name: "{{ project_name }}"
+
+nav:
+  - Home:
+      - Overview: index.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md
+
+theme:
+  name: material
+  features:
+    - navigation.indexes
+    - content.tabs.link
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+extra_css:
+  - css/material.css
+  - css/mkdocstrings.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.snippets:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search

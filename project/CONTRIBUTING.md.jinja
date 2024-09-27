@@ -1,0 +1,145 @@
+# Contributing to {{ project_name }}
+
+❤️ First off, thanks for taking the time to contribute! ❤️
+
+## Table of Contents
+
+- [Commit Message Format](#commit-message-format)
+- [Pre-Commit Hooks](#pre-commit-hooks)
+- [Branching Strategy](#branching-strategy)
+- [CI Guidelines](#ci-guidelines)
+  - [CI Stages](#ci-stages)
+- [Release Strategy](#release-strategy)
+
+## Commit Message Format
+
+In {{ project_name }} we're utilizing commitizen to ensure readable and consistent changelog generation per the
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format. All commits to main (via merge requests) must follow
+the commit message schema:
+
+```shell
+cz schema
+```
+
+`<type>(<scope>): <body>`
+
+By enforcing this commit message structure, we can programmatically generate a changelog from git metadata that clearly
+summarizes the changes in each release. The commit type helps categorize the change, the branch name connects it to a
+ticket, and the message body provides details. Using commitizen and this schema makes maintaining our changelog much
+easier and more reliable. For example `added(feat): commitizen for changelog`
+
+The Gitlab CI will also ensure that your MR title follows the right format.
+
+## Types
+
+- break
+- added
+- removed
+- fixed
+- changed
+
+## Scopes
+
+- feat (feature)
+- test (testing)
+- tech (technical improvement)
+- deps (dependencies)
+- docs (documentation)
+
+You can generate only the changelog with:
+
+```shell
+cz ch
+```
+
+The tag incrementation follows the [semantic version](https://semver.org/) convention.
+
+- **Major:** Changes that break backward compatibility.
+- **Minor:** Introducing backward-compatible features.
+- **Patch:** For minor, backward-compatible fixes.
+
+> **_NOTE:_**  We're trying to avoid using release candidate (rc) version since they're supposed not to be **stable** version, so using them in production would be risky.
+
+## Pre-Commit Hooks
+
+[Pre-commit](https://pre-commit.com/) hooks are a great way to ensure that your code is clean and free of errors before you commit it.
+We use pre-commit hooks to run tests, linting, and other checks on your code before it is committed. This helps to catch errors early and ensures that your code is clean and ready for review.
+
+### Installation
+
+To install pre-commit hooks, run the following command:
+
+```shell
+pre-commit install
+```
+
+This will install the pre-commit hooks for the project. Now, every time you commit your code, the pre-commit hooks will run automatically.
+
+### Usage
+
+There is 2 way to run pre-commit hooks:
+
+- Automatically: Every time you commit your code, the pre-commit hooks will run automatically.
+- Manually: You can also run the pre-commit hooks manually by running the following command:
+
+```shell
+  pre-commit run --all-files
+```
+
+> **_NOTE:_**  If the pre-commit hooks fail, you will not be able to commit your code. You will need to fix the errors and run the pre-commit hooks again before you can commit your code. Search on the internet for the error message you get, an answer is probably already there.
+> **_NOTE_**  Due to the linting, sometimes the pre-commit will fail, but this steps will **automagically** fix the code for you. You will need to run it another time to actually check the errors which are not **automagically** fixed.
+
+## Listing
+{#TODO: list all the pre-commit hooks we're using with a brief explanation of what they do, why we're using them, and the links to their documentation#}
+## Branching Strategy
+
+In our development process, we utilize a branching strategy to keep our work organized and make the review process more efficient. Each task, enhancement, or bug fix you work on should exist within its own branch, which originates from and is eventually merged back into the `main` branch upon task completion and review.
+
+```mermaid
+gitGraph
+    commit
+    commit
+    branch develop
+    checkout develop
+    commit
+    commit
+    checkout main
+    merge develop
+    commit
+    commit
+```
+
+### Merging Your Changes
+
+After you've completed work on your branch, it will go through a review process. Once your Merge Request (MR) is approved by an approver (a project maintainer or a designated reviewer), you can merge your branch into `main`. Here’s how:
+
+1. **Ensure your branch is up to date with `main`**: Before merging, rebase your branch onto `main` to ensure your changes are compatible with the latest version of the project.
+
+2. **Merge your branch into `main`**: After successful review and testing, and once your MR has been approved, you can merge your changes into the `main` branch.
+
+   If you have the necessary permissions, you can merge the branch yourself. If not, the approver who accepted your MR will merge it for you. Don't forgot to squash, merge and then delete your branch after merging.
+
+When you do this, it will trigger a CI. This will make sure the name of the merge request is correct and will do other checks, such as looking at the code without running it to find problems, or making sure there's enough coverage. It also helps increase version number and update the changelog automatically.
+
+By following this branching strategy, we ensure that our repository remains organized, and our project history is both clean and easy to follow. This methodical approach to task management and branching allows us to track changes and roll back updates with ease, contributing to a more stable and manageable project development lifecycle.
+
+## CI Guidelines
+
+We use GitLab CI to automate the testing and deployment process. The CI pipeline is triggered automatically when you push your changes to the repository. The pipeline will run the tests, check the code quality, and deploy the application to the staging environment.
+If you are not familiar with CI, I encourage you to read this article with very cool representation of what it is [https://semaphoreci.com/continuous-integration](https://semaphoreci.com/continuous-integration).
+
+### CI Stages
+{#TODO: Add brief explanation of what does each step of the pipeline#}
+## Release Strategy
+
+Our release process is designed to be simple, efficient, and fully automated. Every time a merge is made to the `main` branch, the release branch is automatically updated to reflect the latest changes. This update triggers a series of automated tasks to streamline the release process.
+
+Firstly, the release branch is tagged with the new version number, ensuring that every release is clearly identifiable. The version number itself is incremented automatically, removing the need for manual intervention and reducing the risk of human error.
+
+In addition to versioning, the changelog is updated automatically, capturing all relevant changes, enhancements, and fixes introduced in the latest release. This ensures that the documentation remains accurate and up-to-date without requiring additional manual input.
+
+Finally, when you're ready to push the release live, you can do so with just a few clicks. Simply click the designated buttons to create a new release, which involves merging the release branch back into the `main` branch. If there are any conflicts, they will need to be resolved during this step, ensuring that the final release is clean and ready for deployment.
+
+This streamlined process not only saves time but also ensures consistency and reliability in our release management.
+
+❤️ Happy coding! ❤️

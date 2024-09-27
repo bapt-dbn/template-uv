@@ -1,0 +1,28 @@
+import os
+import sys
+
+from invoke import Context
+from invoke import task
+from invoke import Collection
+
+sys.path.insert(0, os.path.abspath("."))
+
+from {{ python_package_import_name }} import __version__
+
+
+@task
+def docs(c: Context, build: bool = False, serve: bool = False) -> None:
+    """Build or serve the documentation."""
+    if build:
+        c.run("mkdocs build --strict", pty=True)
+    elif serve:
+        c.run("mkdocs serve --strict", pty=True)
+
+
+@task
+def version(c: Context) -> None:
+    """Print the current version."""
+    print(__version__)
+
+
+project = Collection("project", docs, version)

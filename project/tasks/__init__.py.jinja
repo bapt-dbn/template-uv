@@ -1,6 +1,8 @@
 from invoke import Collection
 
 from tasks.test import test
+from tasks.project import project
 
 namespace = Collection()
 namespace.add_collection(test)
+namespace.add_collection(project)
