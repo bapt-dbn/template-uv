@@ -1,7 +1,10 @@
 #!/usr/bin/env bats
 
-load 'test_setup.bash'
-load 'test_helpers.bash'
+
+load test_helper.bash
+load setup_suite.bash
+
+trap "teardown_suite" EXIT
 
 @test "Commitizen check - correct commit message" {
     check_command_installed cz || return 1

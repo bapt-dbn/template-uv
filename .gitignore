@@ -5,5 +5,8 @@
 # ruff
 .ruff_cache/
 
+# Test
+tests/temp/
+
 ### macOS ###
 .DS_Store

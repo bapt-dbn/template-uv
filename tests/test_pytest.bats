@@ -1,7 +1,9 @@
 #!/usr/bin/env bats
 
-load 'test_setup.bash'
-load 'test_helpers.bash'
+load test_helper.bash
+load setup_suite.bash
+
+trap "teardown_suite" EXIT
 
 @test "Unit test check - run success case" {
     check_command_installed pytest || return 1

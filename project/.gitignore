@@ -13,6 +13,9 @@ venv/
 # mypy
 .mypy_cache/
 
+# mkdocs documentation
+site/
+
 # PyCharm
 .idea/
 
