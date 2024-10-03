@@ -1,3 +1,10 @@
+# CONFIGURATION -------------------------
+_min_copier_version: "9"
+_envops:
+  autoescape: false
+  keep_trailing_newline: true
+_subdirectory: project
+_templates_suffix: .jinja
 ## Project information
 project_name:
   type: str
