@@ -5,7 +5,7 @@
 ## 🧪 Features 🧪
 
 - [X] [uv](https://astral.sh/blog/uv) setup, with pre-defined `pyproject.toml`
-- [ ] Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs) ([Material theme](https://github.com/squidfunk/mkdocs-material))
+- [X] Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs) ([Material theme](https://github.com/squidfunk/mkdocs-material))
 - [X] Pre-configured tools for code formatting, quality analysis and testing:
   - [X] [ruff](https://github.com/charliermarsh/ruff)
 - [X] Tests run with [pytest](https://github.com/pytest-dev/pytest) and plugins, with [coverage](https://github.com/nedbat/coveragepy) support
