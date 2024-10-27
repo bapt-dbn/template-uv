@@ -33,3 +33,10 @@ git add .
 git commit -m "added(feat): initial commit"
 git push -uf origin main
 ```
+
+## 🔧 GitHub Actions Configuration 🔧
+
+### Permissions
+
+Go in your repository Settings > Actions > General > Workflows permissions and check the box "Read and write permissions".
+Check also the box "Allow GitHub Actions to create and approve pull requests".
