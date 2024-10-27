@@ -1,11 +1,9 @@
 name: Test
 on:
-  push:
-    branches-ignore:
-      - main
   pull_request:
-    types:
-      - closed
+    types: [opened, synchronize]
+    branches:
+      - main
 jobs:
   test:
     runs-on: ubuntu-latest
