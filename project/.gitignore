@@ -28,6 +28,9 @@ site/
 # env
 .env
 
+# pytest
+junit.xml
+
 ### macOS ###
 .DS_Store
 .AppleDouble

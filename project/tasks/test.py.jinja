@@ -9,9 +9,7 @@ def unit(c: Context, coverage: bool = False, min_coverage: int = 80) -> None:
     They will fail if they don't pass a minimum coverage.
     """
     options = (
-        f"--cov= {{ python_package_import_name }} --cov-report=term-missing --cov-report=xml --cov-fail-under={min_coverage}"
-        if coverage
-        else ""
+        f"--cov= plop --cov-report=term-missing --cov-report=xml --cov-fail-under={min_coverage}" if coverage else ""
     )
     c.run(f"pytest --junitxml=junit.xml {options} tests/unit", pty=True)
 
