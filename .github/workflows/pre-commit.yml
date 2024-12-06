@@ -1,11 +1,9 @@
 name: pre-commit
 on:
-  push:
-    branches-ignore:
-      - main
   pull_request:
-    types:
-      - closed
+    types: [opened, synchronize]
+    branches:
+      - main
 jobs:
   pre-commit:
     runs-on: ubuntu-latest

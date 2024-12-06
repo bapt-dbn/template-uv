@@ -5,13 +5,15 @@
 ## 🧪 Features 🧪
 
 - [X] [uv](https://astral.sh/blog/uv) setup, with pre-defined `pyproject.toml`
-- [ ] Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs) ([Material theme](https://github.com/squidfunk/mkdocs-material))
+- [X] Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs) ([Material theme](https://github.com/squidfunk/mkdocs-material))
 - [X] Pre-configured tools for code formatting, quality analysis and testing:
   - [X] [ruff](https://github.com/charliermarsh/ruff)
 - [X] Tests run with [pytest](https://github.com/pytest-dev/pytest) and plugins, with [coverage](https://github.com/nedbat/coveragepy) support
 - [X] Cross-platform tasks with [invoke](https://www.pyinvoke.org/)
 - [X] Python 3.12 support
 - [ ] Auto-generated `CHANGELOG.md` from git commits with usage of [commitizen](https://commitizen-tools.github.io/commitizen/)
+- [X] Pre-configured [GitHub Actions](https://docs.github.com/en/actions) workflows
+- [ ] Pre-configured [GitLab CI/CD](https://docs.gitlab.com/ee/ci/) pipelines
 
 ## 🚀 Quick setup and usage 🚀
 
@@ -31,3 +33,10 @@ git add .
 git commit -m "added(feat): initial commit"
 git push -uf origin main
 ```
+
+## 🔧 GitHub Actions Configuration 🔧
+
+### Permissions
+
+Go in your repository Settings > Actions > General > Workflows permissions and check the box "Read and write permissions".
+Check also the box "Allow GitHub Actions to create and approve pull requests".
