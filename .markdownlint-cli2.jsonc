@@ -1,7 +1,7 @@
 {
   "config": {
     "MD013": false, // Disable the line length
-    "MD041": false, // Disable the first line in file
+    "MD041": false, // Disable the first line in the file
     "MD046": false, // Disable fenced and indented code blocks linting
     "MD029": false  // Disable ordered list item prefix
   }
