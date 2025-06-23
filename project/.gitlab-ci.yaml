@@ -1,0 +1,94 @@
+stages:
+  - static-analysis
+  - test
+  - release
+variables:
+  UV_CACHE_DIR: $CI_PROJECT_DIR/.cache/uv
+  PRE_COMMIT_HOME: $CI_PROJECT_DIR/.cache/pre-commit
+.common:
+  image: python:3.12
+  interruptible: true
+  before_script:
+    - pip install uv
+    - uv sync --all-extras --dev
+    - source .venv/bin/activate
+  tags:
+    - python
+pre-commit:
+  extends: .common
+  stage: static-analysis
+  variables:
+    PY: ""
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      variables:
+        CACHE_POLICY: pull
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      interruptible: false
+      variables:
+        CACHE_POLICY: pull-push
+  before_script:
+    - pip install uv
+    - uv sync --all-extras --dev
+    - source .venv/bin/activate
+    - export PY=$(python -VV | sha256sum | cut -d' ' -f1)
+  script:
+    - uv run pre-commit run --all-files
+  cache:
+    key: pre-commit-$PY-$CI_COMMIT_REF_SLUG
+    paths:
+      - $UV_CACHE_DIR
+      - $PRE_COMMIT_HOME
+    policy: $CACHE_POLICY
+test:
+  extends: .common
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      variables:
+        CACHE_POLICY: pull
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      interruptible: false
+      variables:
+        CACHE_POLICY: pull-push
+  script:
+    - uv run inv test.unit
+  cache:
+    key: test-$CI_COMMIT_REF_SLUG
+    paths:
+      - $UV_CACHE_DIR
+    policy: $CACHE_POLICY
+bump-version:
+  extends: .common
+  stage: release
+  interruptible: false
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_MERGE_REQUEST_EVENT_TYPE == 'merged' && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $CI_MERGE_REQUEST_TITLE !~ /^bump:/
+  before_script:
+    - pip install uv commitizen
+    - uv sync --all-extras --dev
+    - source .venv/bin/activate
+    - git config user.email "${GITLAB_USER_EMAIL}"
+    - git config user.name "${GITLAB_USER_NAME}"
+    - git remote set-url origin https://oauth2:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git
+    - git fetch --all
+  script:
+    - export OLD_VERSION=$(cz version --project)
+    - cz bump --yes
+    - export NEW_VERSION=$(cz version --project)
+    - |
+      if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
+        echo "Version bumped from $OLD_VERSION to $NEW_VERSION"
+        export BRANCH_NAME="version-bump-$NEW_VERSION"
+        git checkout -b $BRANCH_NAME
+        git add -A
+        git commit -m "bump: version $NEW_VERSION" || echo "No changes to commit"
+        git push --set-upstream origin $BRANCH_NAME --push-option="merge_request.create" --push-option="merge_request.target=$CI_DEFAULT_BRANCH" --push-option="merge_request.title=bump: version $NEW_VERSION" --push-option="merge_request.description=Pull request automatically created by commitizen."
+      else
+        echo "No version bump needed"
+      fi
+  cache:
+    key: release-$CI_COMMIT_REF_SLUG
+    paths:
+      - $UV_CACHE_DIR
+    policy: pull
