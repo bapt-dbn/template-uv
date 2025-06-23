@@ -27,6 +27,5 @@ setup_suite() {
 }
 
 teardown_suite() {
-    echo -e "${YELLOW}Cleaning up ...${NC}"
     rm -rf "${TEST_FOLDER_NAME}"
 }
