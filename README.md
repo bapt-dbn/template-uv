@@ -1,6 +1,6 @@
 # template-uv
 
-[Copier](https://github.com/copier-org/copier) template that allows to quickly create the arborescence of a Python project managed by [uv](https://astral.sh/blog/uv)
+[Copier](https://github.com/copier-org/copier) template that allows quickly creating the arborescence of a Python project managed by [uv](https://astral.sh/blog/uv)
 
 ## 🧪 Features 🧪
 
@@ -38,5 +38,5 @@ git push -uf origin main
 
 ### Permissions
 
-Go in your repository Settings > Actions > General > Workflows permissions and check the box "Read and write permissions".
-Check also the box "Allow GitHub Actions to create and approve pull requests".
+Go in your repository Settings > Actions > General > Workflows permissions and check the box "Read and write permissions."
+Check also the box "Allow GitHub Actions to create and approve pull requests."
