@@ -13,7 +13,7 @@
 - [X] Python 3.12 support
 - [ ] Auto-generated `CHANGELOG.md` from git commits with usage of [commitizen](https://commitizen-tools.github.io/commitizen/)
 - [X] Pre-configured [GitHub Actions](https://docs.github.com/en/actions) workflows
-- [ ] Pre-configured [GitLab CI/CD](https://docs.gitlab.com/ee/ci/) pipelines
+- [X] Pre-configured [GitLab CI/CD](https://docs.gitlab.com/ee/ci/) pipelines
 
 ## 🚀 Quick setup and usage 🚀
 
