@@ -20,7 +20,7 @@ repos:
         args: [--fix]
         exclude: ^CHANGELOG
   - repo: https://github.com/google/yamlfmt
-    rev: v0.15.0
+    rev: v0.17.1
     hooks:
       - id: yamlfmt
   - repo: https://github.com/pecigonzalo/pre-commit-shfmt
