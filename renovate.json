@@ -2,5 +2,47 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "timezone": "Europe/Paris",
+  "schedule": [
+    "before 6am on Monday"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^project/pyproject\\.toml\\.jinja$"
+      ],
+      "matchStrings": [
+        "\\s+\"(?<depName>[^\"]+)>=(?<currentValue>[^\"]+)\","
+      ],
+      "datasourceTemplate": "pypi",
+      "versioningTemplate": "pep440"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchFiles": [
+        "project/pyproject.toml.jinja"
+      ],
+      "groupName": "Template Python dependencies"
+    }
+  ],
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5,
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "deps:",
+  "commitMessageAction": "update",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to v{{newVersion}}",
+  "labels": [
+    "dependencies",
+    "template"
+  ],
+  "assignees": [
+    "bapt-dbn"
   ]
 }
