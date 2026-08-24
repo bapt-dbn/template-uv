@@ -46,10 +46,20 @@ inv docker.build
 
 ## 📖 Documentation 📖
 
-The documentation of {{ project_name }}  is built using [MkDocs](https://www.mkdocs.org/).
+{% if docs_tool == "mkdocs" -%}
+The documentation of {{ project_name }} is built using [MkDocs](https://www.mkdocs.org/).
+{%- else -%}
+The documentation of {{ project_name }} is built using [Zensical](https://zensical.org/).
+{%- endif %}
 Run the following command to serve the documentation.
+{% if docs_tool == "mkdocs" %}
 > Note: Useful plugins that would be useful to install: mkdocs-jupyter, mkdocstrings, ... .
-
+{% endif %}
 ```shell
 inv project.docs --serve
 ```
+
+The documentation is automatically built and published on every push to `main`:
+
+- **GitHub**: enable it once in Settings > Pages > Source > "GitHub Actions".
+- **GitLab**: enable it once in Settings > Pages (nothing to configure beyond that, the `pages` job handles it).

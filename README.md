@@ -5,7 +5,7 @@
 ## 🧪 Features 🧪
 
 - [X] [uv](https://astral.sh/blog/uv) setup, with pre-defined `pyproject.toml`
-- [X] Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs) ([Material theme](https://github.com/squidfunk/mkdocs-material))
+- [X] Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs) ([Material theme](https://github.com/squidfunk/mkdocs-material)) or [Zensical](https://zensical.org/), your choice, auto-deployed to GitHub/GitLab Pages on push to `main`
 - [X] Pre-configured tools for code formatting, quality analysis and testing:
   - [X] [ruff](https://github.com/charliermarsh/ruff)
 - [X] Tests run with [pytest](https://github.com/pytest-dev/pytest) and plugins, with [coverage](https://github.com/nedbat/coveragepy) support
@@ -40,3 +40,7 @@ git push -uf origin main
 
 Go in your repository Settings > Actions > General > Workflows permissions and check the box "Read and write permissions."
 Check also the box "Allow GitHub Actions to create and approve pull requests."
+
+### Pages
+
+To get the docs deployed automatically, go in Settings > Pages > Source and select "GitHub Actions".

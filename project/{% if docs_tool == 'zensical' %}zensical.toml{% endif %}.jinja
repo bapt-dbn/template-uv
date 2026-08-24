@@ -1,0 +1,40 @@
+[project]
+site_name = "{{ project_name }}"
+site_description = "{{ project_description }}"
+repo_url = "{{ git_remote_url }}"
+repo_name = "{{ project_name }}"
+
+nav = [
+  { "Home" = [
+    { "Overview" = "index.md" },
+  ]},
+  { "Contributing" = "contributing.md" },
+  { "Changelog" = "changelog.md" },
+]
+
+extra_css = ["css/material.css", "css/mkdocstrings.css"]
+
+[project.theme]
+features = [
+  "navigation.indexes",
+  "content.tabs.link",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "material/toggle-switch-off-outline"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "material/toggle-switch"
+toggle.name = "Switch to light mode"
+
+[project.markdown_extensions]
+admonition = {}
+pymdownx.details = {}
+pymdownx.snippets = {}
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed.alternate_style = true
