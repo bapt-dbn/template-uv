@@ -20,7 +20,8 @@ setup_suite() {
       -d author_email="baptiste.dubin@gmail.com" \
       -d git_remote_url="https://github.com/bapt-dbn/template-uv.git" \
       -d python_package_distribution_name=${TEST_PROJECT_NAME} \
-      -d python_package_import_name=${TEST_PROJECT_NAME}
+      -d python_package_import_name=${TEST_PROJECT_NAME} \
+      -d python_version="3.14"
 
     cd "${TEST_FOLDER_NAME}"
     activate_venv
