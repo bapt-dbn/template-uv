@@ -29,3 +29,11 @@ python_package_distribution_name:
 python_package_import_name:
   type: str
   help: Your Python package import name (for `import <NAME>` in Python code)
+python_version:
+  type: str
+  help: Which Python version do you want to use for local development? (CI always tests 3.12, 3.13 and 3.14 regardless)
+  choices:
+    - "3.12"
+    - "3.13"
+    - "3.14"
+  default: "3.14"
