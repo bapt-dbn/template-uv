@@ -14,9 +14,13 @@ from {{ python_package_import_name }} import __version__
 def docs(c: Context, build: bool = False, serve: bool = False) -> None:
     """Build or serve the documentation."""
     if build:
-        c.run("mkdocs build --strict", pty=True)
+        c.run("{{ docs_tool }} build --strict", pty=True)
     elif serve:
+{%- if docs_tool == "mkdocs" %}
         c.run("mkdocs serve --strict", pty=True)
+{%- else %}
+        c.run("zensical serve", pty=True)
+{%- endif %}
 
 
 @task

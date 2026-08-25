@@ -2,6 +2,7 @@ stages:
   - static-analysis
   - test
   - release
+  - pages
 variables:
   UV_CACHE_DIR: $CI_PROJECT_DIR/.cache/uv
   PRE_COMMIT_HOME: $CI_PROJECT_DIR/.cache/pre-commit
@@ -95,6 +96,22 @@ bump-version:
       fi
   cache:
     key: release-$CI_COMMIT_REF_SLUG
+    paths:
+      - $UV_CACHE_DIR
+    policy: pull
+pages:
+  extends: .common
+  stage: pages
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  script:
+    - uv run {{ docs_tool }} build --strict
+    - mv site public
+  artifacts:
+    paths:
+      - public
+  cache:
+    key: pages-$CI_COMMIT_REF_SLUG
     paths:
       - $UV_CACHE_DIR
     policy: pull

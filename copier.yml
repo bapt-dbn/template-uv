@@ -37,3 +37,11 @@ python_version:
     - "3.13"
     - "3.14"
   default: "3.14"
+## Documentation
+docs_tool:
+  type: str
+  help: Which documentation generator do you want to use?
+  choices:
+    - mkdocs
+    - zensical
+  default: zensical
