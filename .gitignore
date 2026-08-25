@@ -7,6 +7,7 @@
 
 # Test
 tests/temp/
+tests/temp_prek.*/
 
 ### macOS ###
 .DS_Store

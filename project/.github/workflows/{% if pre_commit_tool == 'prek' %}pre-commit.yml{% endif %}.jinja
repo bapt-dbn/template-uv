@@ -15,16 +15,16 @@ jobs:
           version: "0.12.5"
           enable-cache: true
       - name: "Set up Python"
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version-file: ".python-version"
       - name: set PY
         run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
       - uses: actions/cache@v6
         with:
-          path: ~/.cache/pre-commit
-          key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+          path: ~/.cache/prek
+          key: prek|{% raw %}${{ env.PY }}|${{ hashFiles('prek.toml') }}{% endraw %}
       - name: "Install dependencies"
         run: uv sync --all-extras --dev
-      - name: "Run pre-commit"
-        run: uv run pre-commit run --all-files
+      - name: "Run prek"
+        run: uv run prek run --all-files

@@ -37,3 +37,11 @@ python_version:
     - "3.13"
     - "3.14"
   default: "3.14"
+## Git hooks
+pre_commit_tool:
+  type: str
+  help: Which git hook manager do you want to use? Both read the same .pre-commit-config.yaml
+  choices:
+    - prek
+    - pre-commit
+  default: prek
