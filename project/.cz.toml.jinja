@@ -1,13 +1,11 @@
 [tool.commitizen]
 name = "cz_customize"
-version = "0.0.1"
+version_provider = "pep621"
 tag_format = "$major.$minor.$patch"
 version_scheme = "semver"
 update_changelog_on_bump = true
 annotated_tag = false
 version_files = [
-    ".cz.toml:version",
-    "pyproject.toml:version",
     "{{ python_package_import_name }}/__init__.py:__version__",
 ]
 

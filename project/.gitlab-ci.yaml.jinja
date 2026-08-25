@@ -4,7 +4,11 @@ stages:
   - release
 variables:
   UV_CACHE_DIR: $CI_PROJECT_DIR/.cache/uv
+{%- if pre_commit_tool == "pre-commit" %}
   PRE_COMMIT_HOME: $CI_PROJECT_DIR/.cache/pre-commit
+{%- else %}
+  PREK_HOME: $CI_PROJECT_DIR/.cache/prek
+{%- endif %}
   PYTHON_VERSION: "{{ python_version }}"
 .common:
   image: python:$PYTHON_VERSION
@@ -34,12 +38,16 @@ pre-commit:
     - source .venv/bin/activate
     - export PY=$(python -VV | sha256sum | cut -d' ' -f1)
   script:
-    - uv run pre-commit run --all-files
+    - uv run {{ pre_commit_tool }} run --all-files
   cache:
     key: pre-commit-$PY-$CI_COMMIT_REF_SLUG
     paths:
       - $UV_CACHE_DIR
+{%- if pre_commit_tool == "pre-commit" %}
       - $PRE_COMMIT_HOME
+{%- else %}
+      - $PREK_HOME
+{%- endif %}
     policy: $CACHE_POLICY
 test:
   extends: .common
