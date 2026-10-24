@@ -11,16 +11,16 @@ dependencies = []
 
 [tool.uv]
 dev-dependencies = [
-    "commitizen>=4.18.0",
+    "commitizen>=4.19.3",
     "invoke>=3.0.3",
 {%- if docs_tool == "mkdocs" %}
     "mkdocs-macros-plugin>=1.5.0",
-    "mkdocs-material>=9.7.7",
-    "mkdocstrings>=1.0.6",
+    "mkdocs-material>=9.8.0",
+    "mkdocstrings>=1.0.8",
 {%- else %}
-    "zensical>=0.0.15",
+    "zensical>=0.0.72",
 {%- endif %}
-    "pre-commit>=4.6.2",
+    "pre-commit>=4.7.0",
     "pytest-cov>=7.1.0",
     "pytest>=9.1.1",
 ]
